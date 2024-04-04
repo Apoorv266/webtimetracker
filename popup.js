@@ -297,7 +297,7 @@ document.getElementById("weekTab").addEventListener("click", function () {
       weeksTotalTime += dayTime;
     }
 
-    alert(JSON.stringify(datesList));
+    // alert(JSON.stringify(datesList));
 
     // week avg + day average
     let weeklyAverage = parseInt(weeksTotalTime / noOfDays);
