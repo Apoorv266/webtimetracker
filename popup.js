@@ -79,6 +79,11 @@ var color = [
 ];
 // chart color
 
+document.getElementById("signin-btn").addEventListener("click", function () {
+  document.querySelector(".mainContent").style.display = "block";
+  document.querySelector(".signInContainer").style.display = "none";
+});
+
 totalTimeSpent = 0; // to get the total time
 var today = getDateString(new Date());
 chrome.storage.local.get(today, function (storedItems) {
