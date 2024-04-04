@@ -1,3 +1,5 @@
+let shouldStartTrack = true;
+
 function isValidURL(givenURL) {
   if (givenURL) {
     if (givenURL.includes(".")) {
