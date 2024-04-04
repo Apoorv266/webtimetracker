@@ -107,7 +107,7 @@ chrome.storage.local.get(today, function (storedItems) {
     topLabels.push(sortedTimeList[j][0]);
   }
 
-  //  displaying content for first table
+  //  displaying content for first table tab
   const webTable = document.getElementById("webList");
   for (let i = 0; i < allKeys.length; i++) {
     let webURL = sortedTimeList[i][0];
@@ -124,7 +124,7 @@ chrome.storage.local.get(today, function (storedItems) {
     webTable.appendChild(row);
     console.log(row);
   }
-  //  displaying content for first table
+  //  displaying content for first table tab
 
   // displaying first page chart
   new Chart(document.getElementById("pie-chart"), {
