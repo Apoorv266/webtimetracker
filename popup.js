@@ -176,18 +176,12 @@ document.getElementById("signin-btn").addEventListener("click", function () {
 
 document.getElementById("detailBtn").addEventListener("click", function () {
   setTimeout(() => {
-    var targetDiv = document.getElementById("webListDiv");
-    var targetDivPosition =
-      targetDiv.getBoundingClientRect().top + window.pageYOffset;
     window.scrollTo({ top: 1000, behavior: "smooth" });
   }, 200);
 });
 
 document.getElementById("detailBtn2").addEventListener("click", function () {
   setTimeout(() => {
-    var targetDiv = document.getElementById("webListDiv2");
-    var targetDivPosition =
-      targetDiv.getBoundingClientRect().top + window.pageYOffset;
     window.scrollTo({ top: 1000, behavior: "smooth" });
   }, 200);
 });
