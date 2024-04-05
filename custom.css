@@ -93,6 +93,45 @@ body {
   margin-top: 20px;
 }
 
+.details-tab {
+  width: 90%;
+  height: 130px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 15px auto 15px auto;
+}
+
 #log-out {
-  position: relative;
+  height: 30px;
+  width: 120px;
+  border: none;
+  background-color: #5bb55c;
+  color: white;
+}
+
+.activity-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.input-field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.input-field p {
+  margin-top: 15px;
+}
+
+.warning {
+  font-size: 12px;
+  color: red;
+  margin-top: -15px;
 }

@@ -64,32 +64,46 @@ function getDomain(tablink) {
 }
 
 function updateTime() {
-  chrome.tabs.query(
-    { active: true, lastFocusedWindow: true },
-    function (activeTab) {
-      let domain = getDomain(activeTab);
-      if (isValidURL(domain)) {
-        let today = new Date();
-        let presentDate = getDateString(today);
-        let myObj = {};
-        myObj[presentDate] = {};
-        myObj[presentDate][domain] = "";
-        let timeSoFar = 0;
-        chrome.storage.local.get(presentDate, function (storedObject) {
-          if (storedObject[presentDate]) {
-            if (storedObject[presentDate][domain]) {
-              timeSoFar = storedObject[presentDate][domain] + 1;
-              storedObject[presentDate][domain] = timeSoFar;
-              chrome.storage.local.set(storedObject, function () {
-                console.log(
-                  "Set " + domain + " at " + storedObject[presentDate][domain]
-                );
-                chrome.browserAction.setBadgeText({
-                  text: secondsToString(timeSoFar, true),
+  if (localStorage.getItem("activationValue") === "true") {
+    chrome.tabs.query(
+      { active: true, lastFocusedWindow: true },
+      function (activeTab) {
+        let domain = getDomain(activeTab);
+        if (isValidURL(domain)) {
+          let today = new Date();
+          let presentDate = getDateString(today);
+          let myObj = {};
+          myObj[presentDate] = {};
+          myObj[presentDate][domain] = "";
+          let timeSoFar = 0;
+          chrome.storage.local.get(presentDate, function (storedObject) {
+            if (storedObject[presentDate]) {
+              if (storedObject[presentDate][domain]) {
+                timeSoFar = storedObject[presentDate][domain] + 1;
+                storedObject[presentDate][domain] = timeSoFar;
+                chrome.storage.local.set(storedObject, function () {
+                  console.log(
+                    "Set " + domain + " at " + storedObject[presentDate][domain]
+                  );
+                  chrome.browserAction.setBadgeText({
+                    text: secondsToString(timeSoFar, true),
+                  });
                 });
-              });
+              } else {
+                timeSoFar++;
+                storedObject[presentDate][domain] = timeSoFar;
+                chrome.storage.local.set(storedObject, function () {
+                  console.log(
+                    "Set " + domain + " at " + storedObject[presentDate][domain]
+                  );
+                  chrome.browserAction.setBadgeText({
+                    text: secondsToString(timeSoFar, true),
+                  });
+                });
+              }
             } else {
               timeSoFar++;
+              storedObject[presentDate] = {};
               storedObject[presentDate][domain] = timeSoFar;
               chrome.storage.local.set(storedObject, function () {
                 console.log(
@@ -100,27 +114,15 @@ function updateTime() {
                 });
               });
             }
-          } else {
-            timeSoFar++;
-            storedObject[presentDate] = {};
-            storedObject[presentDate][domain] = timeSoFar;
-            chrome.storage.local.set(storedObject, function () {
-              console.log(
-                "Set " + domain + " at " + storedObject[presentDate][domain]
-              );
-              chrome.browserAction.setBadgeText({
-                text: secondsToString(timeSoFar, true),
-              });
-            });
-          }
-        });
-      } else {
-        chrome.browserAction.setBadgeText({ text: "" });
+          });
+        } else {
+          chrome.browserAction.setBadgeText({ text: "" });
+        }
       }
-    }
-  );
-
-  // console.log(timeSoFar);
+    );
+  } else {
+    chrome.browserAction.setBadgeText({ text: "" });
+  }
 }
 
 var intervalID;
@@ -129,16 +131,23 @@ intervalID = setInterval(updateTime, 1000);
 setInterval(checkFocus, 500);
 
 function checkFocus() {
-  chrome.windows.getCurrent(function (window) {
-    if (window.focused) {
-      if (!intervalID) {
-        intervalID = setInterval(updateTime, 1000);
+  if (localStorage.getItem("activationValue") === "true") {
+    chrome.windows.getCurrent(function (window) {
+      if (window.focused) {
+        if (!intervalID) {
+          intervalID = setInterval(updateTime, 1000);
+        }
+      } else {
+        if (intervalID) {
+          clearInterval(intervalID);
+          intervalID = null;
+        }
       }
-    } else {
-      if (intervalID) {
-        clearInterval(intervalID);
-        intervalID = null;
-      }
+    });
+  } else {
+    if (intervalID) {
+      clearInterval(intervalID);
+      intervalID = null;
     }
-  });
+  }
 }

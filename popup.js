@@ -1,3 +1,36 @@
+const getCurrTime = () => {
+  var currentDate = new Date();
+
+  var currentHour = currentDate.getHours();
+
+  if (currentHour >= 10 && currentHour < 19) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+const checkBoxInstance = document.getElementById("activation-checkbox");
+if (getCurrTime()) {
+  checkBoxInstance.disabled = true;
+  checkBoxInstance.checked = true;
+  localStorage.setItem("activationValue", true);
+}
+const value = localStorage.getItem("activationValue");
+checkBoxInstance.checked = value === "true";
+
+document
+  .getElementById("activation-checkbox")
+  .addEventListener("change", () => {
+    const checkboxValue = document.getElementById(
+      "activation-checkbox"
+    ).checked;
+
+    localStorage.setItem("activationValue", checkboxValue);
+  });
+
+// });
+
 chrome.storage.local.get("agent_id", function (result) {
   var agentId = JSON.parse(localStorage.getItem("agentData"));
   // alert(agentId);
