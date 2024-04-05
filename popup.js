@@ -14,6 +14,8 @@ const checkBoxInstance = document.getElementById("activation-checkbox");
 if (getCurrTime()) {
   checkBoxInstance.disabled = true;
   checkBoxInstance.checked = true;
+  document.getElementById("log-out").disabled = true;
+  document.getElementById("log-out").style.backgroundColor = "lightGrey";
   localStorage.setItem("activationValue", true);
 }
 const value = localStorage.getItem("activationValue");
@@ -37,11 +39,11 @@ chrome.storage.local.get("agent_id", function (result) {
   if (agentId) {
     document.querySelector(".mainContent").style.display = "block";
     document.querySelector(".signInContainer").style.display = "none";
-    document.getElementById("log-out").style.display = "block";
+    document.querySelector(".details-tab").style.display = "block";
   } else {
     document.querySelector(".mainContent").style.display = "none";
     document.querySelector(".signInContainer").style.display = "block";
-    document.getElementById("log-out").style.display = "none";
+    document.querySelector(".details-tab").style.display = "none";
   }
 });
 
@@ -50,7 +52,6 @@ document.getElementById("signin-btn").addEventListener("click", () => {
 });
 
 function login() {
-  alert($("#agentid").val());
   fetch("http://node.kapture.cx/kap-track/agent-login", {
     method: "POST",
     headers: {
@@ -62,15 +63,9 @@ function login() {
     }),
   })
     .then((response) => {
-      localStorage.setItem(
-        "agentData",
-        // JSON.stringify({
-        $("#agentid").val()
-        //   agent_name: $("#agentname").val(),
-        // })
-      );
+      localStorage.setItem("agentData", $("#agentid").val());
       // alert("Login Successful");
-      document.getElementById("log-out").style.display = "block";
+      document.querySelector(".details-tab").style.display = "block";
       document.querySelector(".mainContent").style.display = "block";
       document.querySelector(".signInContainer").style.display = "none";
     })
@@ -83,7 +78,9 @@ document.getElementById("log-out").addEventListener("click", () => {
   localStorage.removeItem("agentData");
   document.querySelector(".mainContent").style.display = "none";
   document.querySelector(".signInContainer").style.display = "block";
-  document.getElementById("log-out").style.display = "none";
+  document.querySelector(".details-tab").style.display = "none";
+  localStorage.setItem("activationValue", false);
+  chrome.browserAction.setBadgeText({ text: "" });
 });
 
 function getDateString(nDate) {

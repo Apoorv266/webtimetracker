@@ -91,11 +91,12 @@ body {
   color: white;
   border: none;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .details-tab {
   width: 90%;
-  height: 130px;
+  height: 110px;
   border: 1px solid black;
   display: flex;
   align-items: center;
@@ -110,6 +111,8 @@ body {
   border: none;
   background-color: #5bb55c;
   color: white;
+  margin-left: 35%;
+  margin-top: 10px;
 }
 
 .activity-toggle {
