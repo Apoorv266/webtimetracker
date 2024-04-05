@@ -70,6 +70,11 @@ body {
   flex-direction: column;
   gap: 10px;
   margin-top: 40px;
+  margin-left: 20px;
+}
+
+.signInContainer h5 {
+  margin-top: 10px;
 }
 
 .signInContainer input {
@@ -85,4 +90,9 @@ body {
   background-color: #6732ed;
   color: white;
   border: none;
+  margin-top: 20px;
+}
+
+#log-out {
+  position: relative;
 }

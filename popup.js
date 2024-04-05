@@ -1,3 +1,58 @@
+chrome.storage.local.get("agent_id", function (result) {
+  var agentId = JSON.parse(localStorage.getItem("agentData"));
+  // alert(agentId);
+  if (agentId) {
+    document.querySelector(".mainContent").style.display = "block";
+    document.querySelector(".signInContainer").style.display = "none";
+    document.getElementById("log-out").style.display = "block";
+  } else {
+    document.querySelector(".mainContent").style.display = "none";
+    document.querySelector(".signInContainer").style.display = "block";
+    document.getElementById("log-out").style.display = "none";
+  }
+});
+
+document.getElementById("signin-btn").addEventListener("click", () => {
+  login();
+});
+
+function login() {
+  alert($("#agentid").val());
+  fetch("http://node.kapture.cx/kap-track/agent-login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      agent_id: $("#agentid").val(),
+      agent_name: $("#agentname").val(),
+    }),
+  })
+    .then((response) => {
+      localStorage.setItem(
+        "agentData",
+        // JSON.stringify({
+        $("#agentid").val()
+        //   agent_name: $("#agentname").val(),
+        // })
+      );
+      // alert("Login Successful");
+      document.getElementById("log-out").style.display = "block";
+      document.querySelector(".mainContent").style.display = "block";
+      document.querySelector(".signInContainer").style.display = "none";
+    })
+    .catch((error) => {
+      console.error("There was a problem", error);
+    });
+}
+
+document.getElementById("log-out").addEventListener("click", () => {
+  localStorage.removeItem("agentData");
+  document.querySelector(".mainContent").style.display = "none";
+  document.querySelector(".signInContainer").style.display = "block";
+  document.getElementById("log-out").style.display = "none";
+});
+
 function getDateString(nDate) {
   let nDateDate = nDate.getDate();
   let nDateMonth = nDate.getMonth() + 1;
