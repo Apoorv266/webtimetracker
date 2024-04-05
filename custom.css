@@ -138,3 +138,10 @@ body {
   color: red;
   margin-top: -15px;
 }
+
+#prod-hours-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: green;
+}

@@ -258,6 +258,20 @@ chrome.storage.local.get(null, function (items) {
   calendar.max = maxDate; // provding second date to date input
 });
 
+chrome.storage.local.get(null, function (items) {
+  const today = getDateString(new Date());
+  const todayData = items[today];
+  // alert(JSON.stringify(todayData));
+  let totalProductiveHours = 0;
+  Object.keys(todayData).forEach((item) => {
+    if (item.includes("kapturecrm")) {
+      totalProductiveHours = todayData[item];
+    }
+  });
+  document.getElementById("productiv-hours").innerText =
+    secondsToString(totalProductiveHours);
+});
+
 document.getElementById("dateSubmit").addEventListener("click", function () {
   const calendar = document.getElementById("dateValue");
   if (calendar.value === "") {
