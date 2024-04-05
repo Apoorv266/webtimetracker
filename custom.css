@@ -7,9 +7,10 @@ body {
 #todayTab,
 #dailyTab,
 #weekTab {
-  background-color: rgba(114, 106, 149, 0.3);
-  color: black;
+  background-color: #ed2b41;
+  color: white;
   transition: 1s;
+  font-size: 13px;
 }
 
 .mainContent {
@@ -17,45 +18,51 @@ body {
 }
 
 #todayTab:hover {
-  background-color: rgba(53, 31, 57, 0.5);
+  background-color: #ed2b01;
 }
 #dailyTab:hover {
-  background-color: rgba(53, 31, 57, 0.5);
+  background-color: #ed2b01;
 }
 #weekTab:hover {
-  background-color: rgba(53, 31, 57, 0.5);
+  background-color: #ed2b01;
 }
 
 .nav-link.active {
-  background-color: rgba(53, 31, 57, 0.75) !important;
+  background-color: #ed2b01 !important;
   color: white !important;
 }
 
 #detailBtn,
 #detailBtn2 {
-  background-color: #719fb0;
-  color: #212529;
+  background-color: #ed2b41;
+  color: white;
   transition: 1s;
 }
 
 #detailBtn:hover,
 #detailBtn2:hover {
-  background-color: #0d2e3a;
+  background-color: #ed2b01;
   color: white;
 }
 
 .card-header {
-  background-color: #719fb0;
+  background-color: #ed2b41;
+  color: white;
 }
 
 #dateSubmit {
-  background-color: #719fb0;
-  color: #212529;
+  background-color: #ed2b41;
+  color: white;
   transition: 1s;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
 }
 
 #dateSubmit:hover {
-  background-color: #0d2e3a;
+  background-color: #ed2b01;
   color: white;
 }
 
@@ -87,7 +94,7 @@ body {
 #signin-btn {
   width: 90%;
   height: 30px;
-  background-color: #6732ed;
+  background-color: #ed2b41;
   color: white;
   border: none;
   margin-top: 20px;
@@ -102,7 +109,8 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin: 15px auto 15px auto;
+  margin: 25px auto 25px auto;
+  border-radius: 10px;
 }
 
 #log-out {
@@ -135,7 +143,7 @@ body {
 
 .warning {
   font-size: 12px;
-  color: red;
+  color: #f04a5e;
   margin-top: -15px;
 }
 
@@ -144,4 +152,26 @@ body {
   align-items: center;
   justify-content: center;
   color: green;
+}
+
+button {
+  border-radius: 10px;
+}
+
+.analytics-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.second-anaytics-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.detail-btn {
+  margin-left: 120px;
 }

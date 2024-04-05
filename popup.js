@@ -156,22 +156,40 @@ var allKeys,
 
 // chart color
 var color = [
-  "rgba(78, 204, 113, 0.8)",
-  "rgba(220, 46, 98, 0.6)",
-  "rgba(15, 127, 221, 0.9)",
-  "rgba(255, 180, 0, 0.7)",
-  "rgba(40, 87, 168, 0.5)",
-  "rgba(182, 66, 244, 0.8)",
-  "rgba(73, 201, 122, 0.6)",
-  "rgba(94, 27, 154, 0.7)",
-  "rgba(32, 176, 193, 0.9)",
-  "rgba(203, 92, 57, 0.8)",
+  "#b91d47",
+  "#00aba9",
+  "#2b5797",
+  "#e8c3b9",
+  "#1e7145",
+  "#ffa500",
+  "#4169e1",
+  "#ff69b4",
+  "#ffd700",
+  "#8a2be2",
 ];
 // chart color
 
 document.getElementById("signin-btn").addEventListener("click", function () {
   document.querySelector(".mainContent").style.display = "block";
   document.querySelector(".signInContainer").style.display = "none";
+});
+
+document.getElementById("detailBtn").addEventListener("click", function () {
+  setTimeout(() => {
+    var targetDiv = document.getElementById("webListDiv");
+    var targetDivPosition =
+      targetDiv.getBoundingClientRect().top + window.pageYOffset;
+    window.scrollTo({ top: 1000, behavior: "smooth" });
+  }, 200);
+});
+
+document.getElementById("detailBtn2").addEventListener("click", function () {
+  setTimeout(() => {
+    var targetDiv = document.getElementById("webListDiv2");
+    var targetDivPosition =
+      targetDiv.getBoundingClientRect().top + window.pageYOffset;
+    window.scrollTo({ top: 1000, behavior: "smooth" });
+  }, 200);
 });
 
 totalTimeSpent = 0; // to get the total time
