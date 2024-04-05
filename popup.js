@@ -34,8 +34,8 @@ document
 // });
 
 chrome.storage.local.get("agent_id", function (result) {
-  var agentId = JSON.parse(localStorage.getItem("agentData"));
-  // alert(agentId);
+  var agentId = JSON.parse(localStorage.getItem("agentId"));
+
   if (agentId) {
     document.querySelector(".mainContent").style.display = "block";
     document.querySelector(".signInContainer").style.display = "none";
@@ -63,11 +63,15 @@ function login() {
     }),
   })
     .then((response) => {
-      localStorage.setItem("agentData", $("#agentid").val());
-      // alert("Login Successful");
+      localStorage.setItem("agentId", $("#agentid").val());
+      localStorage.setItem("agentName", $("#agentname").val());
+
       document.querySelector(".details-tab").style.display = "block";
       document.querySelector(".mainContent").style.display = "block";
       document.querySelector(".signInContainer").style.display = "none";
+
+      document.getElementById("activation-checkbox").checked = true;
+      localStorage.setItem("activationValue", true);
     })
     .catch((error) => {
       console.error("There was a problem", error);
@@ -75,7 +79,8 @@ function login() {
 }
 
 document.getElementById("log-out").addEventListener("click", () => {
-  localStorage.removeItem("agentData");
+  localStorage.removeItem("agentId");
+  localStorage.removeItem("agentName");
   document.querySelector(".mainContent").style.display = "none";
   document.querySelector(".signInContainer").style.display = "block";
   document.querySelector(".details-tab").style.display = "none";
@@ -183,7 +188,6 @@ chrome.storage.local.get(today, function (storedItems) {
   }
   sortedTimeList.sort((a, b) => b[1] - a[1]);
   console.log(sortedTimeList);
-  // alert(JSON.stringify(timeSpent));
 
   topCount = allKeys.length > 10 ? 10 : allKeys.length;
   console.log(topCount);
@@ -386,8 +390,6 @@ document.getElementById("weekTab").addEventListener("click", function () {
       timeEachDay.push(dayTime);
       weeksTotalTime += dayTime;
     }
-
-    // alert(JSON.stringify(datesList));
 
     // week avg + day average
     let weeklyAverage = parseInt(weeksTotalTime / noOfDays);

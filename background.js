@@ -88,6 +88,7 @@ function updateTime() {
                   chrome.browserAction.setBadgeText({
                     text: secondsToString(timeSoFar, true),
                   });
+                  storeDataInDB(presentDate, timeSoFar, domain);
                 });
               } else {
                 timeSoFar++;
@@ -99,6 +100,7 @@ function updateTime() {
                   chrome.browserAction.setBadgeText({
                     text: secondsToString(timeSoFar, true),
                   });
+                  storeDataInDB(presentDate, timeSoFar, domain);
                 });
               }
             } else {
@@ -112,6 +114,7 @@ function updateTime() {
                 chrome.browserAction.setBadgeText({
                   text: secondsToString(timeSoFar, true),
                 });
+                storeDataInDB(presentDate, timeSoFar, domain);
               });
             }
           });
@@ -149,5 +152,54 @@ function checkFocus() {
       clearInterval(intervalID);
       intervalID = null;
     }
+  }
+}
+
+async function getAgentData() {
+  try {
+    const [agentIdResult, agentNameResult] = await Promise.all([
+      new Promise((resolve, reject) => {
+        const storedAgentId = localStorage.getItem("agentId");
+        resolve(storedAgentId);
+      }),
+      new Promise((resolve, reject) => {
+        const storedAgentName = localStorage.getItem("agentName");
+        resolve(storedAgentName);
+      }),
+    ]);
+
+    return { agentId: agentIdResult, agentName: agentNameResult };
+  } catch (error) {
+    console.error("Error retrieving agent data:", error);
+    return { agentId: null, agentName: null };
+  }
+}
+
+async function storeDataInDB(presentDate, timeSoFar, website) {
+  try {
+    const { agentId, agentName } = await getAgentData();
+
+    const apiUrl = "http://node.kapture.cx/kap-track/add-agent-history";
+    const requestBody = {
+      agent_id: agentId,
+      agent_name: agentName,
+      website_url: website,
+      active_time: timeSoFar,
+      date: presentDate,
+    };
+
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    if (!response) {
+      throw new Error("Network response was not ok");
+    }
+  } catch (error) {
+    console.error("Error:", error);
   }
 }
