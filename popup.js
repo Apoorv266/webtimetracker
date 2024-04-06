@@ -279,7 +279,7 @@ chrome.storage.local.get(null, function (items) {
       totalProductiveHours += todayData[item];
     }
   });
-  alert(JSON.stringify(todayData));
+  // alert(JSON.stringify(todayData));
   document.getElementById("productive-hours").innerText =
     secondsToString(totalProductiveHours);
 });
