@@ -273,14 +273,14 @@ chrome.storage.local.get(null, function (items) {
 chrome.storage.local.get(null, function (items) {
   const today = getDateString(new Date());
   const todayData = items[today];
-  // alert(JSON.stringify(todayData));
   let totalProductiveHours = 0;
   Object.keys(todayData).forEach((item) => {
     if (item.includes("kapturecrm")) {
-      totalProductiveHours = todayData[item];
+      totalProductiveHours += todayData[item];
     }
   });
-  document.getElementById("productiv-hours").innerText =
+  alert(JSON.stringify(todayData));
+  document.getElementById("productive-hours").innerText =
     secondsToString(totalProductiveHours);
 });
 
