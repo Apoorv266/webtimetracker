@@ -1,4 +1,4 @@
-// test
+
 
 function isValidURL(givenURL) {
   if (givenURL) {

@@ -148,10 +148,14 @@ body {
 }
 
 #prod-hours-container {
+  color: green;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: green;
+}
+
+#prod-hours {
+  margin-left: 60px;
 }
 
 button {

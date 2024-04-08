@@ -1,8 +1,6 @@
 const getCurrTime = () => {
-  var currentDate = new Date();
-
-  var currentHour = currentDate.getHours();
-
+  let currentDate = new Date();
+  let currentHour = currentDate.getHours();
   if (currentHour >= 10 && currentHour < 19) {
     return true;
   } else {
@@ -34,21 +32,29 @@ document
 // });
 
 chrome.storage.local.get("agent_id", function (result) {
-  var agentId = JSON.parse(localStorage.getItem("agentId"));
-
+  let agentId = JSON.parse(localStorage.getItem("agentId"));
+  // alert(agentId);
   if (agentId) {
+    // chrome.storage.local.clear(function () {
     document.querySelector(".mainContent").style.display = "block";
     document.querySelector(".signInContainer").style.display = "none";
     document.querySelector(".details-tab").style.display = "block";
+    document.querySelector("#prod-hours-container").style.display = "block";
+    // });
   } else {
+    // chrome.storage.local.clear(function () {
     document.querySelector(".mainContent").style.display = "none";
     document.querySelector(".signInContainer").style.display = "block";
     document.querySelector(".details-tab").style.display = "none";
+    document.querySelector("#prod-hours-container").style.display = "none";
+    // });
   }
 });
 
 document.getElementById("signin-btn").addEventListener("click", () => {
-  login();
+  chrome.storage.local.clear(function () {
+    login();
+  });
 });
 
 function login() {
@@ -67,6 +73,7 @@ function login() {
       localStorage.setItem("agentName", $("#agentname").val());
 
       document.querySelector(".details-tab").style.display = "block";
+      document.querySelector("#prod-hours-container").style.display = "block";
       document.querySelector(".mainContent").style.display = "block";
       document.querySelector(".signInContainer").style.display = "none";
 
@@ -79,13 +86,16 @@ function login() {
 }
 
 document.getElementById("log-out").addEventListener("click", () => {
-  localStorage.removeItem("agentId");
-  localStorage.removeItem("agentName");
-  document.querySelector(".mainContent").style.display = "none";
-  document.querySelector(".signInContainer").style.display = "block";
-  document.querySelector(".details-tab").style.display = "none";
-  localStorage.setItem("activationValue", false);
-  chrome.browserAction.setBadgeText({ text: "" });
+  chrome.storage.local.clear(function () {
+    localStorage.removeItem("agentId");
+    localStorage.removeItem("agentName");
+    document.querySelector(".mainContent").style.display = "none";
+    document.querySelector(".signInContainer").style.display = "block";
+    document.querySelector(".details-tab").style.display = "none";
+    document.querySelector("#prod-hours-container").style.display = "none";
+    localStorage.setItem("activationValue", false);
+    chrome.browserAction.setBadgeText({ text: "" });
+  });
 });
 
 function getDateString(nDate) {
@@ -144,7 +154,7 @@ function secondsToString(seconds, compressed = false) {
 }
 
 // variables declaration
-var allKeys,
+let allKeys,
   timeSpent,
   totalTimeSpent,
   sortedTimeList,
@@ -155,7 +165,7 @@ var allKeys,
 // variables declaration
 
 // chart color
-var color = [
+let color = [
   "#b91d47",
   "#00aba9",
   "#2b5797",
@@ -187,7 +197,7 @@ document.getElementById("detailBtn2").addEventListener("click", function () {
 });
 
 totalTimeSpent = 0; // to get the total time
-var today = getDateString(new Date());
+let today = getDateString(new Date());
 chrome.storage.local.get(today, function (storedItems) {
   allKeys = Object.keys(storedItems[today]); // storing all domains for todays date
   timeSpent = []; // store all time unsorted
@@ -384,7 +394,7 @@ function getDateTotalTime(storedObject, date) {
   }
   return totalTime;
 }
-var monthNames = [
+let monthNames = [
   "",
   "Jan",
   "Feb",
