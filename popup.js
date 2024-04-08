@@ -289,9 +289,13 @@ chrome.storage.local.get(null, function (items) {
       totalProductiveHours += todayData[item];
     }
   });
-  // alert(JSON.stringify(todayData));
-  document.getElementById("productive-hours").innerText =
-    secondsToString(totalProductiveHours);
+  if (totalProductiveHours === 0) {
+    document.getElementById("prod-hours-container").style.display = "none";
+  } else {
+    document.getElementById("prod-hours-container").style.display = "block";
+    document.getElementById("productive-hours").innerText =
+      secondsToString(totalProductiveHours);
+  }
 });
 
 document.getElementById("dateSubmit").addEventListener("click", function () {
